@@ -63,6 +63,16 @@ function updateDesc($id, $name, $alias)
 	return $result; // true or false
 }
 
+// получаем ID кафедры по её имени
+function getKafedraIdByName($kaf_name){
+	$sql = "SELECT * FROM kafedra WHERE kaf_name = '$kaf_name' LIMIT 1";
+	$result = useSQL($sql);
+	$row = mysql_fetch_assoc($result);
+	$id = intval($row[kaf_id]);
+	return $id;
+}
+
+// $id = getKafedraIdByName('Кафедра Финансов');
 // updateDesc(1, 'test2', 'tst2');
 // $res = getMainData();
 // $id = 4;
