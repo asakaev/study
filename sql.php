@@ -56,21 +56,43 @@ function getDescById($id) {
 }
 
 // обновляем данные о дисциплине
-function updateDesc($id, $name, $alias)
-{
-	$sql = "UPDATE desciplines SET desc_name = '$name', desc_alias = '$alias' WHERE id = '$id'";
+function updateDesc($id, $name, $alias, $kaf_id) {
+	$sql = "UPDATE desciplines SET desc_name = '$name', desc_alias = '$alias', kaf_fkey_id = '$kaf_id' WHERE id = '$id'";
 	$result = useSQL($sql);
 	return $result; // true or false
 }
 
 // получаем ID кафедры по её имени
-function getKafedraIdByName($kaf_name){
+function getKafedraIdByName($kaf_name) {
 	$sql = "SELECT * FROM kafedra WHERE kaf_name = '$kaf_name' LIMIT 1";
 	$result = useSQL($sql);
 	$row = mysql_fetch_assoc($result);
 	$id = intval($row[kaf_id]);
 	return $id;
 }
+
+function getAllKafedras() {
+	$sql = "SELECT * FROM kafedra";
+	$result = useSQL($sql);
+
+	// конвертируем ресурс в массив PHP
+	$rows = array();
+	while($r = mysql_fetch_assoc($result)) {
+	    $rows[] = $r;
+	}
+
+	$array = [];
+	foreach ($rows as &$value) {
+		$id = $value[kaf_id];
+		$name = $value[kaf_name];
+		$array[$id] = $name;
+	}
+
+	return $array;
+}
+
+// $kafs = getAllKafedras();
+// var_dump($kafs);
 
 // $id = getKafedraIdByName('Кафедра Финансов');
 // updateDesc(1, 'test2', 'tst2');
