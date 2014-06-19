@@ -1,12 +1,17 @@
 <?php
 
-function getMainData() {
-	// получаем из базы нужный контент
-	$sql = "SELECT * FROM kafedra, desciplines";
+function useSQL($sql) {
 	$con = mysql_connect('localhost', 'root', '1234');
 	mysql_set_charset( 'utf8' ); // кодировка в которой с базой работаем
 	mysql_select_db('study', $con);
 	$result = mysql_query($sql); // получаем resource из базы данных
+	return $result;
+}
+
+function getMainData() {
+	// получаем из базы нужный контент
+	$sql = "SELECT * FROM kafedra, desciplines";
+	$result = useSQL($sql);
 
 	// конвертируем ресурс в массив PHP
 	$rows = array();
@@ -32,10 +37,7 @@ function getMainData() {
 function getDescById($id) {
 	// получаем из базы нужный контент
 	$sql = "SELECT * FROM kafedra, desciplines WHERE kafedra.kaf_id = desciplines.kaf_fkey_id and desciplines.id = $id";
-	$con = mysql_connect('localhost', 'root', '1234');
-	mysql_set_charset( 'utf8' ); // кодировка в которой с базой работаем
-	mysql_select_db('study', $con);
-	$result = mysql_query($sql); // получаем resource из базы данных
+	$result = useSQL($sql);
 
 	// конвертируем ресурс в массив PHP
 	$rows = array();
@@ -54,6 +56,8 @@ function getDescById($id) {
 }
 
 // $res = getMainData();
+// $id = 4;
+// $res = getDescById($id);
 
 // выводим результат
 // var_dump($res);
