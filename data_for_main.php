@@ -19,14 +19,12 @@ foreach ($rows as &$value) {
 	{
 		$kaf = $value[kaf_name];
 		$disc = $value[disc_name];
-		$array[$kaf][] = $disc;
+		$id = $value[id];
+		$array[$kaf][$id] = $disc;
 	}
 }
+
+// выводим результат
 var_dump($array);
-
 header( 'Content-Type: text/html; charset=utf-8' );
-
-// header('Content-Type: application/json');
-// echo json_encode($array);
-
 ?>
