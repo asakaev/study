@@ -20,23 +20,23 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Дамп таблицы desciplines
+# Дамп таблицы disciplines
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `desciplines`;
+DROP TABLE IF EXISTS `disciplines`;
 
-CREATE TABLE `desciplines` (
+CREATE TABLE `disciplines` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `desc_name` text,
+  `disc_name` text,
   `kaf_fkey_id` int(11) DEFAULT NULL,
-  `desc_alias` text,
+  `disc_alias` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `desciplines` WRITE;
-/*!40000 ALTER TABLE `desciplines` DISABLE KEYS */;
+LOCK TABLES `disciplines` WRITE;
+/*!40000 ALTER TABLE `disciplines` DISABLE KEYS */;
 
-INSERT INTO `desciplines` (`id`, `desc_name`, `kaf_fkey_id`, `desc_alias`)
+INSERT INTO `disciplines` (`id`, `disc_name`, `kaf_fkey_id`, `disc_alias`)
 VALUES
 	(1,'tes5',2,'t5'),
 	(2,'Информатика1',2,'Инф1'),
@@ -46,7 +46,7 @@ VALUES
 	(6,'Компьютерная графика',2,'КГ'),
 	(7,'Финансы и кредит',3,'ФиК');
 
-/*!40000 ALTER TABLE `desciplines` ENABLE KEYS */;
+/*!40000 ALTER TABLE `disciplines` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

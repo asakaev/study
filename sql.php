@@ -11,7 +11,7 @@ function useSQL($sql) {
 // получаем данные для главной страницы
 function getMainData() {
 	// получаем из базы нужный контент
-	$sql = "SELECT * FROM kafedra, desciplines";
+	$sql = "SELECT * FROM kafedra, disciplines";
 	$result = useSQL($sql);
 
 	// конвертируем ресурс в массив PHP
@@ -26,18 +26,18 @@ function getMainData() {
 		if ($value[kaf_id] == $value[kaf_fkey_id])
 		{
 			$kaf = $value[kaf_name];
-			$desc = $value[desc_name];
+			$disc = $value[disc_name];
 			$id = $value[id];
-			$array[$kaf][$id] = $desc;
+			$array[$kaf][$id] = $disc;
 		}
 	}
 	return $array;
 }
 
 // получаем детальные данные о дисциплине
-function getDescById($id) {
+function getdiscById($id) {
 	// получаем из базы нужный контент
-	$sql = "SELECT * FROM kafedra, desciplines WHERE kafedra.kaf_id = desciplines.kaf_fkey_id and desciplines.id = $id";
+	$sql = "SELECT * FROM kafedra, disciplines WHERE kafedra.kaf_id = disciplines.kaf_fkey_id and disciplines.id = $id";
 	$result = useSQL($sql);
 
 	// конвертируем ресурс в массив PHP
@@ -48,16 +48,16 @@ function getDescById($id) {
 
 	// преобразовываем информацию от СУБД в удобный для верстки формат
 	$array = [];
-	$array[name] = $rows[0][desc_name];
+	$array[name] = $rows[0][disc_name];
 	$array[kaf_name] = $rows[0][kaf_name];
-	$array[alias] = $rows[0][desc_alias];
+	$array[alias] = $rows[0][disc_alias];
 	$array[id] = $rows[0][id];
     return $array;
 }
 
 // обновляем данные о дисциплине
-function updateDesc($id, $name, $alias, $kaf_id) {
-	$sql = "UPDATE desciplines SET desc_name = '$name', desc_alias = '$alias', kaf_fkey_id = '$kaf_id' WHERE id = '$id'";
+function updateDisc($id, $name, $alias, $kaf_id) {
+	$sql = "UPDATE disciplines SET disc_name = '$name', disc_alias = '$alias', kaf_fkey_id = '$kaf_id' WHERE id = '$id'";
 	$result = useSQL($sql);
 	return $result; // true or false
 }
@@ -71,6 +71,7 @@ function getKafedraIdByName($kaf_name) {
 	return $id;
 }
 
+// получение списка всех кафедр
 function getAllKafedras() {
 	$sql = "SELECT * FROM kafedra";
 	$result = useSQL($sql);
@@ -91,14 +92,24 @@ function getAllKafedras() {
 	return $array;
 }
 
+// добавление новой дисциплины
+function insertDisc($name, $alias, $kaf_id) {
+	$sql = "INSERT INTO disciplines VALUES (NULL, '$name', '$kaf_id', '$alias')";
+	$result = useSQL($sql);
+	$id = mysql_insert_id();
+	return $id; // inserted ID
+}
+
+// $add = insertdisc('Новая дисциплина', 'НД', 3);
+// var_dump($add);
 // $kafs = getAllKafedras();
 // var_dump($kafs);
 
 // $id = getKafedraIdByName('Кафедра Финансов');
-// updateDesc(1, 'test2', 'tst2');
+// updatedisc(1, 'test2', 'tst2');
 // $res = getMainData();
 // $id = 4;
-// $res = getDescById($id);
+// $res = getdiscById($id);
 // выводим результат
 // var_dump($res);
 // header('Content-Type: text/html; charset=utf-8');
