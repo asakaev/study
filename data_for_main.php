@@ -2,7 +2,7 @@
 
 function getMainData() {
 	// получаем из базы нужный контент
-	$sql = "SELECT * FROM kafedra, disciplines";
+	$sql = "SELECT * FROM kafedra, desciplines";
 	$con = mysql_connect('localhost', 'root', '1234');
 	mysql_set_charset( 'utf8' ); // кодировка в которой с базой работаем
 	mysql_select_db('study', $con);
@@ -20,9 +20,9 @@ function getMainData() {
 		if ($value[kaf_id] == $value[kaf_fkey_id])
 		{
 			$kaf = $value[kaf_name];
-			$disc = $value[disc_name];
+			$desc = $value[desc_name];
 			$id = $value[id];
-			$array[$kaf][$id] = $disc;
+			$array[$kaf][$id] = $desc;
 		}
 	}
 	return $array;

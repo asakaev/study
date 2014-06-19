@@ -3,7 +3,7 @@
 // Получаем детальные данные о дисциплине
 function getDescById($id) {
 	// получаем из базы нужный контент
-	$sql = "SELECT * FROM kafedra, disciplines WHERE kafedra.kaf_id = disciplines.kaf_fkey_id and disciplines.id = $id";
+	$sql = "SELECT * FROM kafedra, desciplines WHERE kafedra.kaf_id = desciplines.kaf_fkey_id and desciplines.id = $id";
 	$con = mysql_connect('localhost', 'root', '1234');
 	mysql_set_charset( 'utf8' ); // кодировка в которой с базой работаем
 	mysql_select_db('study', $con);
@@ -17,9 +17,9 @@ function getDescById($id) {
 
 	// преобразовываем информацию от СУБД в удобный для верстки формат
 	$array = [];
-	$array[name] = $rows[0][disc_name];
+	$array[name] = $rows[0][desc_name];
 	$array[kaf_name] = $rows[0][kaf_name];
-	$array[alias] = $rows[0][disc_alias];
+	$array[alias] = $rows[0][desc_alias];
 	$array[id] = $rows[0][id];
 
     return $array;
